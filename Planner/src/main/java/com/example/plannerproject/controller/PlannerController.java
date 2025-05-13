@@ -2,7 +2,10 @@ package com.example.plannerproject.controller;
 
 import com.example.plannerproject.dto.PlannerRequestDto;
 import com.example.plannerproject.dto.PlannerResponseDto;
+import com.example.plannerproject.entity.Planner;
 import com.example.plannerproject.service.PlannerService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +30,12 @@ public class PlannerController {
     public List<PlannerResponseDto> findAllPlanners() {
 
         return plannerService.findAllPlanners();
-
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<PlannerResponseDto> findPlannerById(@PathVariable Long id) {
+        PlannerResponseDto responseDto = plannerService.findPlannerById(id);
+        return new ResponseEntity<>(plannerService.findPlannerById(id), HttpStatus.OK);
     }
 }
+
 

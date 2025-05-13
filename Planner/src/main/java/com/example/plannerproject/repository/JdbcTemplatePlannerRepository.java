@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Repository
 public class JdbcTemplatePlannerRepository implements PlannerRepository {
@@ -50,11 +51,12 @@ public class JdbcTemplatePlannerRepository implements PlannerRepository {
         return jdbctemplate.query("SELECT * FROM schedule", plannerRowMapper());
     }
 
-
     @Override
-    public Planner findPlannerById(long id) {
-        return null;
+    public Optional<Planner> findPlannerById(long id) {
+        List<Planner> result = jdbctemplate.query("SELECT * FROM schedule WHERE id = ?", plannerRowMapperV2(), id);
+        return result.stream().findAny();
     }
+
 
     @Override
     public void deletePlannerById(long id) {
@@ -67,6 +69,20 @@ public class JdbcTemplatePlannerRepository implements PlannerRepository {
             @Override
             public PlannerResponseDto mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new PlannerResponseDto(
+                        rs.getLong("id"),
+                        rs.getString("user"),
+                        rs.getString("task"),
+                        rs.getDate("created").toLocalDate(),
+                        rs.getDate("updated").toLocalDate());
+            }
+        };
+    }
+
+    private RowMapper<Planner> plannerRowMapperV2() {
+        return new RowMapper<Planner>() {
+            @Override
+            public Planner mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new Planner(
                         rs.getLong("id"),
                         rs.getString("user"),
                         rs.getString("task"),

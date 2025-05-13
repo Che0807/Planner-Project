@@ -4,6 +4,7 @@ import com.example.plannerproject.dto.PlannerResponseDto;
 import com.example.plannerproject.entity.Planner;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PlannerRepository {
 
@@ -11,7 +12,7 @@ public interface PlannerRepository {
 
     List<PlannerResponseDto> findAllPlanners();
 
-    Planner findPlannerById(long id);
+    Optional<Planner> findPlannerById(long id);
 
     void deletePlannerById(long id);
 

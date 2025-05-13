@@ -7,6 +7,8 @@ import com.example.plannerproject.entity.Planner;
 import com.example.plannerproject.repository.PlannerRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PlannerServiceImpl implements PlannerService {
 
@@ -23,5 +25,10 @@ public class PlannerServiceImpl implements PlannerService {
 
 
         return plannerRepository.savePlanner(planner);
+    }
+
+    @Override
+    public List<PlannerResponseDto> findAllPlanners() {
+        return plannerRepository.findAllPlanners();
     }
 }

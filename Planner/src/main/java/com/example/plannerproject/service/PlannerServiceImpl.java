@@ -39,9 +39,20 @@ public class PlannerServiceImpl implements PlannerService {
         Optional<Planner> optionalPlanner = plannerRepository.findPlannerById(id);
 
         if (optionalPlanner.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "잘못된 값입니다.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id = " + id);
         }
 
         return new PlannerResponseDto(optionalPlanner.get());
+    }
+
+    @Override
+    public void deletePlanner(Long id) {
+
+        int deleteRow = plannerRepository.deletePlanner(id);
+
+        if (deleteRow == 0) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id = " + id);
+        }
+
     }
 }

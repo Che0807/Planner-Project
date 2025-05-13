@@ -59,8 +59,8 @@ public class JdbcTemplatePlannerRepository implements PlannerRepository {
 
 
     @Override
-    public void deletePlannerById(long id) {
-
+    public int deletePlanner(long id) {
+       return jdbctemplate.update("DELETE FROM schedule WHERE id = ?", id);
     }
 
     private RowMapper<PlannerResponseDto> plannerRowMapper() {

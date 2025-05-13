@@ -14,6 +14,6 @@ public interface PlannerRepository {
 
     Optional<Planner> findPlannerById(long id);
 
-    void deletePlannerById(long id);
+    int deletePlanner(long id);
 
 }

@@ -1,12 +1,15 @@
 package com.example.plannerproject.repository;
 
+import com.example.plannerproject.dto.PlannerRequestDto;
 import com.example.plannerproject.dto.PlannerResponseDto;
 import com.example.plannerproject.entity.Planner;
+import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
@@ -59,9 +62,24 @@ public class JdbcTemplatePlannerRepository implements PlannerRepository {
 
 
     @Override
-    public int deletePlanner(long id) {
-       return jdbctemplate.update("DELETE FROM schedule WHERE id = ?", id);
+    public int deletePlanner(long id, PlannerRequestDto plannerRequestDto) {
+        String sql = "SELECT password FROM schedule WHERE id = ?";
+        String deleteSql = "DELETE FROM schedule WHERE id = ?";
+
+        String dbPassword = jdbctemplate.queryForObject(sql, String.class, id);
+
+        if (dbPassword == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Schedule with id " + id + " not found.");
+        }
+
+        if (!dbPassword.equals(plannerRequestDto.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Password does not match.");
+        }
+
+        // 비밀번호가 일치하면 삭제
+        return jdbctemplate.update(deleteSql, id);
     }
+
 
     private RowMapper<PlannerResponseDto> plannerRowMapper() {
 

@@ -1,5 +1,6 @@
 package com.example.plannerproject.repository;
 
+import com.example.plannerproject.dto.PlannerRequestDto;
 import com.example.plannerproject.dto.PlannerResponseDto;
 import com.example.plannerproject.entity.Planner;
 
@@ -14,6 +15,6 @@ public interface PlannerRepository {
 
     Optional<Planner> findPlannerById(long id);
 
-    int deletePlanner(long id);
+    int deletePlanner(long id, PlannerRequestDto plannerRequestDto);
 
 }

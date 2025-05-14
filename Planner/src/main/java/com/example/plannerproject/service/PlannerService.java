@@ -14,5 +14,5 @@ public interface PlannerService {
 
     PlannerResponseDto findPlannerById(Long id);
 
-    void deletePlanner(Long id);
+    void deletePlanner(Long id, PlannerRequestDto plannerRequestDto);
 }

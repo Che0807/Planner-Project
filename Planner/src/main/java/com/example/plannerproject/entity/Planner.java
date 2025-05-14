@@ -16,10 +16,9 @@ public class Planner {
     private LocalDate created;
     private LocalDate updated;
 
-    // 패스워드를 포함하지 않는 생성자
-    public Planner(String user, String task) {
-        this.user = user;
-        this.task = task;
+    // 패스워드만 있는 생성자
+    public Planner(String password) {
+        this.password = password;
     }
 
     // 패스워드를 포함한 생성자

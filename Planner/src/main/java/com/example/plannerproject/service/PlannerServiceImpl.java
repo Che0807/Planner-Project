@@ -46,9 +46,9 @@ public class PlannerServiceImpl implements PlannerService {
     }
 
     @Override
-    public void deletePlanner(Long id) {
+    public void deletePlanner(Long id, PlannerRequestDto plannerRequestDto) {
 
-        int deleteRow = plannerRepository.deletePlanner(id);
+        int deleteRow = plannerRepository.deletePlanner(id, plannerRequestDto);
 
         if (deleteRow == 0) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id = " + id);

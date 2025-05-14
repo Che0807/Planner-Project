@@ -38,9 +38,9 @@ public class PlannerController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Planner> deletePlanner(@PathVariable Long id) {
+    public ResponseEntity<Planner> deletePlanner(@PathVariable Long id, @RequestBody PlannerRequestDto plannerRequestDto) {
 
-        plannerService.deletePlanner(id);
+        plannerService.deletePlanner(id,plannerRequestDto);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

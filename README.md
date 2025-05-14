@@ -300,7 +300,7 @@ API 명세서와 ERD를 작성하여 프로젝트의 전반적인 구조를 구�
 | `updated`  | `DATETIME`     | 마지막으로 수정된 날짜     |
 
 
-<img src="images/schedule.png" alt="ERD" width="802"/>
+<img src="images/schedule.png" alt="ERD" width="500"/>
 
 </details>
 

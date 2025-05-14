@@ -6,7 +6,6 @@ import com.example.plannerproject.entity.Planner;
 import com.example.plannerproject.service.PlannerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,8 +21,9 @@ public class PlannerController {
     }
 
     @PostMapping
-    public PlannerResponseDto createPlanner(@RequestBody PlannerRequestDto plannerRequestDto) {
-        return plannerService.savePlanner(plannerRequestDto);
+    public ResponseEntity<PlannerResponseDto> createPlanner(@RequestBody PlannerRequestDto plannerRequestDto) {
+
+        return new ResponseEntity<>(plannerService.savePlanner(plannerRequestDto), HttpStatus.CREATED);
     }
 
     @GetMapping

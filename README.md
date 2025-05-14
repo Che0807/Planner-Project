@@ -303,5 +303,6 @@ API 명세서와 ERD를 작성하여 프로젝트의 전반적인 구조를 구�
 <img src="images/schedule.png" alt="ERD" width="500"/>
 
 </details>
-
+## 트러블 슈팅
+https://che01.tistory.com/37
 

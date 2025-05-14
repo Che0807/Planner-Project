@@ -46,6 +46,20 @@ public class PlannerServiceImpl implements PlannerService {
     }
 
     @Override
+    public PlannerResponseDto updatePlanner(Long id, PlannerRequestDto plannerRequestDto) {
+        int updatedRows = plannerRepository.updatePlanner(id, plannerRequestDto);
+
+        if (updatedRows == 0) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id = " + id);
+        }
+
+        Planner updatedPlanner = new Planner(id, plannerRequestDto.getUser(), plannerRequestDto.getTask());
+        return new PlannerResponseDto(updatedPlanner);
+    }
+
+
+
+    @Override
     public void deletePlanner(Long id, PlannerRequestDto plannerRequestDto) {
 
         int deleteRow = plannerRepository.deletePlanner(id, plannerRequestDto);

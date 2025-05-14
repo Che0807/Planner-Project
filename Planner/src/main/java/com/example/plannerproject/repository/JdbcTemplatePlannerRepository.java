@@ -60,6 +60,25 @@ public class JdbcTemplatePlannerRepository implements PlannerRepository {
         return result.stream().findAny();
     }
 
+    @Override
+    public int updatePlanner(Long id, PlannerRequestDto plannerRequestDto) {
+
+        String sql = "SELECT password FROM schedule WHERE id = ?";
+        String updatesql = "UPDATE schedule SET user = ?, task = ? WHERE id = ?";
+
+        String dbPassword = jdbctemplate.queryForObject(sql, String.class, id);
+
+        if (plannerRequestDto.getPassword() == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Schedule with id " + id + " not found.");
+        }
+
+        if (!dbPassword.equals(plannerRequestDto.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Password does not match.");
+        }
+
+        return jdbctemplate.update(updatesql, plannerRequestDto.getUser(), plannerRequestDto.getTask(), id);
+    }
+
 
     @Override
     public int deletePlanner(long id, PlannerRequestDto plannerRequestDto) {

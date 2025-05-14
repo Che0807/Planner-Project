@@ -28,6 +28,13 @@ public class Planner {
         this.password = password;
     }
 
+    public Planner(Long id, String user, String task) {
+        this.id = id;
+        this.user = user;
+        this.task = task;
+    }
+
+
     public Planner(Long id ,String user, String task, LocalDate created, LocalDate updated) {
         this.id = id;
         this.user = user;

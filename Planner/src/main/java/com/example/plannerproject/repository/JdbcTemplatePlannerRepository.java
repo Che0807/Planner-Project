@@ -56,7 +56,7 @@ public class JdbcTemplatePlannerRepository implements PlannerRepository {
 
     @Override
     public Optional<Planner> findPlannerById(long id) {
-        List<Planner> result = jdbctemplate.query("SELECT * FROM schedule WHERE id = ?", plannerRowMapperV2(), id);
+        List<Planner> result = jdbctemplate.query("SELECT * FROM schedule WHERE id = ? ORDER BY updated DESC", plannerRowMapperV2(), id);
         return result.stream().findAny();
     }
 
